@@ -600,25 +600,25 @@ li {
 }
 
 .header-inicio {
-  background-image: url(../img/navegador/nubes_03.jpg);
+  background-image: url(../img/navegador/nubes_03.webp);
   background-size: cover;
   background-position: center center;
 }
 
 .header-nosotros {
-  background-image: url(../img/navegador/investigacion_03.jpg);
+  background-image: url(../img/navegador/investigacion_03.webp);
   background-size: cover;
   background-position: center center;
 }
 
 .header-productos {
-  background-image: url(../img/navegador/investigacion_02.jpg);
+  background-image: url(../img/navegador/investigacion_02.webp);
   background-size: cover;
   background-position: center bottom;
 }
 
 .header-registros {
-  background-image: url(../img/navegador/mecatronica_01.avif);
+  background-image: url(../img/navegador/mecatronica_01.webp);
   background-size: cover;
   background-position: center center;
 }
@@ -5854,47 +5854,47 @@ li {
 /* Animación para la imagen superior */
 @-webkit-keyframes cambioImagenSuperior {
   0%, 45% {
-    background-image: url("build/img/navegador/agricultura_01.avif");
+    background-image: url("build/img/navegador/agricultura_01.webp");
   }
   50%, 95% {
-    background-image: url("build/img/navegador/investigacion_03.avif");
+    background-image: url("build/img/navegador/investigacion_03.webp");
   }
   100% {
-    background-image: url("build/img/navegador/agricultura_vertical_01.avif");
+    background-image: url("build/img/navegador/agricultura_vertical_01.webp");
   }
 }
 @keyframes cambioImagenSuperior {
   0%, 45% {
-    background-image: url("build/img/navegador/agricultura_01.avif");
+    background-image: url("build/img/navegador/agricultura_01.webp");
   }
   50%, 95% {
-    background-image: url("build/img/navegador/investigacion_03.avif");
+    background-image: url("build/img/navegador/investigacion_03.webp");
   }
   100% {
-    background-image: url("build/img/navegador/agricultura_vertical_01.avif");
+    background-image: url("build/img/navegador/agricultura_vertical_01.webp");
   }
 }
 /* Animación para la imagen inferior */
 @-webkit-keyframes cambioImagenInferior {
   0%, 45% {
-    background-image: url("build/img/imagenes_extras/monitoreo_02.avif");
+    background-image: url("build/img/imagenes_extras/monitoreo_02.webp");
   }
   50%, 95% {
-    background-image: url("build/img/imagenes_extras/granizo_tomate_02.avif");
+    background-image: url("build/img/imagenes_extras/granizo_tomate_02.webp");
   }
   100% {
-    background-image: url("build/img/imagenes_extras/invernadero.avif");
+    background-image: url("build/img/imagenes_extras/invernadero.webp");
   }
 }
 @keyframes cambioImagenInferior {
   0%, 45% {
-    background-image: url("build/img/imagenes_extras/monitoreo_02.avif");
+    background-image: url("build/img/imagenes_extras/monitoreo_02.webp");
   }
   50%, 95% {
-    background-image: url("build/img/imagenes_extras/granizo_tomate_02.avif");
+    background-image: url("build/img/imagenes_extras/granizo_tomate_02.webp");
   }
   100% {
-    background-image: url("build/img/imagenes_extras/invernadero.avif");
+    background-image: url("build/img/imagenes_extras/invernadero.webp");
   }
 }
 /* Nuevas animaciones */

@@ -5855,7 +5855,7 @@ li {
 
 @-webkit-keyframes cambioImagenSuperior {
   0%, 45% {
-    background-image: url("../../img/navegador/agricultura_01.webp");
+    background-image: url("../img/navegador/agricultura_01.webp");
   }
   50%, 95% {
     background-image: url("../img/navegador/investigacion_03.webp");

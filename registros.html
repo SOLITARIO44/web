@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>RegistrosIntiSmart</title>
+    <link rel="icon" href="/build/img/logo/solo_logo_blanco.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Slab:wght@100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="build/css/app.css">
+</head>
+  
+
+<body>
+    <header class=" header header-registros">
+        <div class="contenido-header ">
+            <div class="barra contenedor">
+
+                <div class="logo">      
+                    <img src="/build/img/logo/LOGO_BLANCO.webp" alt="logo-inti" >             
+
+                </div>
+
+                <nav class="nav-principal">
+                    <a href="index.html">Inicio</a>
+                    <a href="nosotros.html">Nosotros</a>
+                    <a href="productos.html">Productos</a>
+                    <a class="activo" href="registros.html">Registros</a>
+                    <a href="contacto.html">Contactos</a>
+                </nav>
+
+            </div>
+
+            <div class = "texto-header">
+                <h1> Datos en vivo sobre la radiación UV para protegerte con información precisa. </h1>
+            </div>
+
+        </div>    
+    </header>
+
+
+
+    <main class="principal-registros">
+        <div class="titulo-registros">
+            <h1>Registros En Tiempo Real</h1>
+            <div class="estado-registro"> <!-- Antes: registro-estado -->
+            ● REGISTRANDO ...
+            </div>
+        </div>
+        
+        <div class="contenedor-grafica-registros"> <!-- Antes: grafica-registros -->
+
+            <div>
+                <aside class="columna-izquierda"> <!-- Antes: registros-izquierda -->
+                    <h2>ESTACIONES</h2>
+                    <ul id="lista-estaciones"></ul> <!-- Antes: station-list -->
+                </aside>
+                
+                <section class="columna-centro"> <!-- Antes: registros-centro -->
+                    <div class="contenedor-mapa"> <!-- Antes: estacion -->
+                        <h2>MAPA</h2>
+                        <div id="mapa-estaciones" class="mapa-estaciones"> <!-- Antes: map -->
+                        <div class="marcador-personalizado">
+                            <div class="pulso"></div>
+                            <span>Estación 1</span>
+                        </div>
+                        </div> 
+                    </div>
+                </section>
+            </div>
+
+            <div>
+                <aside class="columna-derecha"> <!-- Antes: registros-derecha -->
+                    <div id="grafico-uv"> <!-- Antes: uv-graph -->
+                        <div>
+                        <h2 id="nombre-estacion"></h2> <!-- Antes: name-station -->
+                        <time id="hora-registro"></time> <!-- Antes: time-register -->
+                        <p id="coordenadas-estacion"></p> <!-- Antes: station-coordinates -->
+                        </div>
+                        <div class="grafico-uv-contenedor"> <!-- Antes: grafica-uv -->
+                        <canvas id="graficoUv" width="800" height="400"></canvas> <!-- Antes: uvChart -->
+                        </div>
+                    </div>
+                
+                    <div id="leyenda-uv"> <!-- Antes: legend -->
+                        <img src="build/img/niveles/legend.svg" alt="Leyenda de UV">
+                    </div>
+                
+                    <div id="valores-numericos"> <!-- Antes: numeric-values -->
+                        <div class="info-actualizacion">
+                        <p>Última actualización: <time id="ultima-actualizacion">-</time></p> <!-- Antes: last-update -->
+                        </div>
+                
+                        <div class="grid-valores"> <!-- Antes: valores-grid -->
+                        <div class="valor temperatura">
+                            <p>Temperatura: <span id="valor-temp">-</span>°C</p> <!-- Antes: temp-value -->
+                        </div>
+                        <div class="valor humedad">
+                            <p>Humedad: <span id="valor-humedad">-</span>%</p> <!-- Antes: humidity-value -->
+                        </div>
+                        <div class="valor indice-uv">
+                            <p>Índice UV: <span id="valor-uv">-</span></p> <!-- Antes: uv-index-value -->
+                        </div>
+                        </div>
+                    </div>
+                </aside>
+            </div> 
+        </div>
+    </main>
+    <section class="mapas contenedor">
+        <h2><span>Mapas</span> de calor</h2>
+        <div class="descripcion-mapas">
+            <p>Visualiza la distribución geográfica de temperatura,  humedad e índice UV mediante mapas de calor actualizados en tiempo real.  
+                humedad e índice UV mediante mapas de calor actualizados en tiempo real.</p>
+        </div>
+        
+        <div class="riel-mapas">
+            <div class="controles-riel">
+                <button class="control-riel anterior" aria-label="Ver mapa anterior">
+                    <img src="build/img/iconos/izquierda.svg" alt="Anterior">
+                </button>
+                <button class="control-riel siguiente" aria-label="Ver mapa siguiente">
+                    <img src="build/img/iconos/derecha.svg" alt="Siguiente">
+                </button>
+            </div>
+            
+            <div class="contenedor-riel">
+                <div class="mapa-calor" id="mapa-temperatura">
+                    <h3>Mapa de Temperatura</h3>
+                    <div class="visualizacion-mapa">
+                        <!-- Aquí irá el mapa de calor para temperatura -->
+                        <div class="placeholder-mapa"></div>
+                    </div>
+                    <div class="leyenda-mapa">
+                        <div class="escala-colores">
+                            <div class="color-min">10°C</div>
+                            <div class="gradiente temperatura-gradiente"></div>
+                            <div class="color-max">40°C</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mapa-calor" id="mapa-humedad">
+                    <h3>Mapa de Humedad</h3>
+                    <div class="visualizacion-mapa">
+                        <!-- Aquí irá el mapa de calor para humedad -->
+                        <div class="placeholder-mapa"></div>
+                    </div>
+                    <div class="leyenda-mapa">
+                        <div class="escala-colores">
+                            <div class="color-min">0%</div>
+                            <div class="gradiente humedad-gradiente"></div>
+                            <div class="color-max">100%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mapa-calor" id="mapa-uv">
+                    <h3>Mapa de Índice UV</h3>
+                    <div class="visualizacion-mapa">
+                        <!-- Aquí irá el mapa de calor para índice UV -->
+                        <div class="placeholder-mapa"></div>
+                    </div>
+                    <div class="leyenda-mapa">
+                        <div class="escala-colores">
+                            <div class="color-min">0</div>
+                            <div class="gradiente uv-gradiente"></div>
+                            <div class="color-max">11+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="indicadores-riel">
+            <button class="indicador activo" data-mapa="temperatura" aria-label="Ver mapa de temperatura"></button>
+            <button class="indicador" data-mapa="humedad" aria-label="Ver mapa de humedad"></button>
+            <button class="indicador" data-mapa="uv" aria-label="Ver mapa de índice UV"></button>
+        </div>
+        
+        <div class="info-actualizacion-mapas">
+            <p>Última actualización de mapas: <time id="ultima-actualizacion-mapas">-</time></p>
+        </div>
+    </section>
+    <section class="sobre-radiacion ">
+        <h2><span>Conoce </span> mas sobre la radiación</h2>
+        <div class="radiacion-contenido">
+          <div class="resumen-rad">
+            <p>
+              "En Perú, la radiación solar alcanza niveles extremos por su cercanía al ecuador y la altitud andina, elevando el riesgo de daños cutáneos y oculares. Para protegerse, se debe usar bloqueador SPF 50+, reaplicado cada dos horas, junto con gorros de ala ancha, lentes UV y ropa protectora. Evitar la exposición entre 10 a.m. y 4 p.m., buscar sombra e hidratarse son clave. Estas medidas, respaldadas por campañas estatales y prácticas ancestrales, como los sombreros andinos, son vitales para la salud pública (MINSA, 2023; SENAMHI, 2023)".
+            </p>
+            <div class="radiacion-header-cta">
+              <a href="blog_Radiacion.html" class="btn-conocenos">Conoce más sobre radiación</a>
+            </div>
+          </div>
+      
+          <div class="radiacion-imagen">
+            <img src="build/img/lugares_instalacion/bloqueador2.webp" alt="Protección contra radiación">
+          </div>
+        </div>
+    </section>
+          
+    <section class="problemas-frecuentes contenedor">
+        <h1 class="titulo-principal">¿POR QUÉ DEBEMOS CUIDARNOS DE LA RADIACIÓN?</h1>
+
+        <div class="contenedor-problemas">
+            <!-- Columna izquierda - Imágenes -->
+            <div class="columna-imagen izquierda">
+                <div class="caja-imagen">
+                    <img src="build/img/salud/imagen_1.webp" alt="Radiación imagen 1" class="imagen-animada">
+                </div>
+                <div class="caja-imagen">
+                    <img src="build/img/salud/playa.webp" alt="Radiación imagen 2" class="imagen-animada">
+                </div>
+                <div class="caja-imagen">
+                    <img src="build/img/salud/quemadura-2.webp" alt="Radiación imagen 3" class="imagen-animada">
+                </div>
+            </div>
+
+            <!-- Columna central - Preguntas y respuestas -->
+            <div class="columna-contenido">
+                <div class="caja-pregunta">
+                    <h2>PROBLEMAS FRECUENTES EN LA PIEL</h2>
+                    <p class="respuesta">
+                        Estudios de la <strong>Revista Peruana de Medicina Experimental y Salud Pública</strong> confirman que 
+                        la exposición prolongada causa fotoenvejecimiento, quemaduras solares y cáncer de piel. La 
+                        <strong>Universidad Técnica de Machala</strong> destaca que la radiación UV afecta no solo la piel, 
+                        sino también los ojos y el sistema inmunológico, favoreciendo enfermedades cutáneas.
+                    </p>
+                </div>
+
+                <div class="caja-pregunta">
+                    <h2>CUÁNTAS PERSONAS MUEREN POR CÁNCER DE PIEL AL AÑO</h2>
+                    <p class="respuesta">
+                        Según la <strong>American Cancer Society</strong>, miles de personas fallecen cada año debido a la 
+                        radiación solar, especialmente por melanoma. En el caso de Perú, la <strong>Revista Peruana de 
+                        Medicina Experimental y Salud Pública</strong> señala que el cáncer de piel ha aumentado en zonas 
+                        de alta radiación UV.
+                    </p>
+                </div>
+
+                <div class="caja-pregunta">
+                    <h2>QUIÉNES SON LOS MÁS PERJUDICADOS</h2>
+                    <p class="respuesta">
+                        De acuerdo con la <strong>Universidad Técnica de Machala</strong>, los niños y trabajadores al aire 
+                        libre tienen mayor riesgo de desarrollar enfermedades cutáneas. La 
+                        <strong>American Cancer Society</strong> menciona que las personas con piel clara o antecedentes 
+                        familiares de cáncer de piel son más propensas a los efectos nocivos de la radiación UV.
+                    </p>
+                </div>
+
+                <div class="caja-pregunta">
+                    <h2>CÓMO CUIDARNOS DE LA RADIACIÓN SOLAR</h2>
+                    <p class="respuesta">
+                        Investigaciones de la <strong>Universidad de Valladolid</strong> recomiendan el uso de protector solar, 
+                        ropa adecuada y evitar la exposición entre las 10 a.m. y 4 p.m. Además, la 
+                        <strong>Revista Peruana de Medicina Experimental y Salud Pública</strong> sugiere programas de 
+                        concienciación para reducir el impacto de la radiación UV en la población.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Columna derecha - Imágenes -->
+            <div class="columna-imagen derecha">
+                <div class="caja-imagen">
+                    <img src="build/img/salud/cancer_piel.webp" alt="Radiación imagen 4" class="imagen-animada">
+                </div>
+                <div class="caja-imagen">
+                    <img src="build/img/salud/quemadura-2.webp" alt="Radiación imagen 5" class="imagen-animada">
+                </div>
+                <div class="caja-imagen">
+                    <img src="build/img/salud/playa.webp" alt="Radiación imagen 6" class="imagen-animada">
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- <section class="targeta ">
+        <h2><span>Estado</span> de las estaciones</h2>
+        
+        <div class="resumen-estaciones">
+            <div class="tarjeta-estado operativas">
+                <div class="numero-estado" id="estaciones-operativas">12</div>
+                <div class="descripcion-estado">
+                    <div class="icono-estado">
+                        <span class="indicador-operativo"></span>
+                    </div>
+                    <h3>Estaciones operativas</h3>
+                </div>
+                <div class="porcentaje-estado" id="porcentaje-operativas">80%</div>
+            </div>
+            
+            <div class="tarjeta-estado mantenimiento">
+                <div class="numero-estado" id="estaciones-mantenimiento">2</div>
+                <div class="descripcion-estado">
+                    <div class="icono-estado">
+                        <span class="indicador-mantenimiento"></span>
+                    </div>
+                    <h3>En mantenimiento</h3>
+                </div>
+                <div class="porcentaje-estado" id="porcentaje-mantenimiento">13%</div>
+            </div>
+            
+            <div class="tarjeta-estado inoperativas">
+                <div class="numero-estado" id="estaciones-inoperativas">1</div>
+                <div class="descripcion-estado">
+                    <div class="icono-estado">
+                        <span class="indicador-inoperativo"></span>
+                    </div>
+                    <h3>Estaciones inoperativas</h3>
+                </div>
+                <div class="porcentaje-estado" id="porcentaje-inoperativas">7%</div>
+            </div>
+        </div>
+        
+        <div class="info-adicional-estaciones">
+            <div class="total-sistema">
+                <span class="etiqueta">Total de estaciones:</span>
+                <span class="valor" id="total-estaciones">15</span>
+            </div>
+            <div class="ultima-revision">
+                <span class="etiqueta">Última revisión del sistema:</span>
+                <span class="valor" id="fecha-revision">25 de Abril, 2025</span>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- <section class="informacion-recomendacion ">
+        <h2><span>Información</span> y recomendaciones</h2>
+        
+        <div class="fondo-diagonal">
+            <div class="contenido-recomendaciones">
+                <div class="tabla-rangos">
+                    <h3>Tabla de rangos de cuidado</h3>
+                    <div class="tabla-contenedor">
+                        <table class="tabla-uv">
+                            <thead>
+                                <tr>
+                                    <th>Índice UV</th>
+                                    <th>Nivel de riesgo</th>
+                                    <th>Tiempo seguro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="nivel-bajo">
+                                    <td>0-2</td>
+                                    <td>Bajo</td>
+                                    <td>60 min</td>
+                                </tr>
+                                <tr class="nivel-moderado">
+                                    <td>3-5</td>
+                                    <td>Moderado</td>
+                                    <td>45 min</td>
+                                </tr>
+                                <tr class="nivel-alto">
+                                    <td>6-7</td>
+                                    <td>Alto</td>
+                                    <td>30 min</td>
+                                </tr>
+                                <tr class="nivel-muy-alto">
+                                    <td>8-10</td>
+                                    <td>Muy alto</td>
+                                    <td>15-25 min</td>
+                                </tr>
+                                <tr class="nivel-extremo">
+                                    <td>11+</td>
+                                    <td>Extremo</td>
+                                    <td>10 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="tabla-fuente">Fuente: Organización Mundial de la Salud y SENAMHI</p>
+                </div>
+                
+                <div class="recomendaciones">
+                    <h3>Recomendaciones</h3>
+                    
+                    <div class="lista-recomendaciones">
+                        <div class="recomendacion-item">
+                            <div class="icono-recomendacion">
+                                <img src="build/img/iconos/bloqueador.svg" alt="Usar bloqueador">
+                            </div>
+                            <div class="texto-recomendacion">
+                                <h4>Usar bloqueador SPF 50+</h4>
+                                <p>Aplicar cada 2 horas en zonas expuestas</p>
+                            </div>
+                        </div>
+                        
+                        <div class="recomendacion-item">
+                            <div class="icono-recomendacion">
+                                <img src="build/img/iconos/sombrero.svg" alt="Usar sombrero">
+                            </div>
+                            <div class="texto-recomendacion">
+                                <h4>Usar sombrero de ala ancha</h4>
+                                <p>Protege rostro, orejas y cuello</p>
+                            </div>
+                        </div>
+                        
+                        <div class="recomendacion-item">
+                            <div class="icono-recomendacion">
+                                <img src="build/img/iconos/gafas.svg" alt="Usar lentes">
+                            </div>
+                            <div class="texto-recomendacion">
+                                <h4>Usar lentes con filtro UV</h4>
+                                <p>Protege los ojos de daños por radiación</p>
+                            </div>
+                        </div>
+                        
+                        <div class="recomendacion-item">
+                            <div class="icono-recomendacion">
+                                <img src="build/img/iconos/sombra.svg" alt="Buscar sombra">
+                            </div>
+                            <div class="texto-recomendacion">
+                                <h4>Buscar sombra</h4>
+                                <p>Especialmente entre 10am y 4pm</p>
+                            </div>
+                        </div>
+                        
+                        <div class="recomendacion-item">
+                            <div class="icono-recomendacion">
+                                <img src="build/img/iconos/ropa.svg" alt="Usar ropa adecuada">
+                            </div>
+                            <div class="texto-recomendacion">
+                                <h4>Usar ropa protectora</h4>
+                                <p>Mangas largas y tejidos de alta densidad</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                        <h3>Imágenes</h3>
+                        <div class="contenedor-imagenes">
+                            <div class="imagen-proteccion">
+                                <img src="build/img/proteccion/proteccion1.webp" alt="Protección UV">
+                            </div>
+                            <div class="imagen-proteccion">
+                                <img src="build/img/proteccion/proteccion2.webp" alt="Protección UV">
+                            </div>
+                            <div class="imagen-proteccion">
+                                <img src="build/img/proteccion/proteccion3.webp" alt="Protección UV">
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- <header class="articulos-radiacion">
+        <h1>ARTÍCULOS RELACIONADOS</h1>
+        <div class="contenedor-articulos">
+            <div class="portada-articulo">
+                <img src="build/img/articulos/1.webp" alt="Portada: Radiación solar y prevención del cáncer de piel">
+                <div class="info-articulo">
+                    <h2>Radiación solar y prevención del cáncer de piel</h2>
+                    <p><strong>Autor:</strong> Universidad de Valladolid</p>
+                    <a href="https://uvadoc.uva.es/bitstream/handle/10324/28125/TFG-O%201082.pdf?sequence=1&isAllowed=y" target="_blank">Ver artículo</a>
+                </div>
+            </div>
+
+            <div class="portada-articulo">
+                <img src="build/img/articulos/2.webp" alt="Portada: Experiencia peruana en la prevención del cáncer de piel">
+                <div class="info-articulo">
+                    <h2>Cáncer de piel y radiación solar: experiencia peruana</h2>
+                    <p><strong>Autor:</strong> Revista Peruana de Medicina Experimental y Salud Pública</p>
+                    <a href="https://rpmesp.ins.gob.pe/index.php/rpmesp/article/view/167/168" target="_blank">Ver artículo</a>
+                </div>
+            </div>
+
+            <div class="portada-articulo">
+                <img src="build/img/articulos/3.webp" alt="Portada: Radiación solar como factor de riesgo de cáncer de piel">
+                <div class="info-articulo">
+                    <h2>Radiación solar como factor de riesgo de cáncer de piel</h2>
+                    <p><strong>Autor:</strong> Universidad Técnica de Machala</p>
+                    <a href="https://repositorio.utmachala.edu.ec/bitstream/48000/21824/1/E-13458_CALVA%20TOLEDO%20NATHALIE%20MADELEINE.pdf" target="_blank">Ver artículo</a>
+                </div>
+            </div>
+
+            <div class="portada-articulo">
+                <img src="build/img/articulos/4.webp" alt="Portada: La radiación UV y el riesgo de cáncer">
+                <div class="info-articulo">
+                    <h2>La radiación UV y el riesgo de cáncer</h2>
+                    <p><strong>Autor:</strong> American Cancer Society</p>
+                    <a href="https://www.cancer.org/es/cancer/prevencion-del-riesgo/sol-y-uv/radiacion-uv.html" target="_blank">Ver artículo</a>
+                </div>
+            </div>
+
+        </div>
+    </header> -->
+
+    <footer class="footer-container">
+        <!-- Social Media Icons -->
+        <h2><span>Nuestras</span> redes sociales</h1>
+        <div class="social-media">
+            <a href="#"><img src="build/img/redes/facebook.ico" alt="Facebook"><span>Facebook</span></a>
+            <a href="#"><img src="build/img/redes/youtube.ico" alt="Youtube"><span>Youtube</span></a>
+            <a href="#"><img src="build/img/redes/linkedin.ico" alt="LinkedIn"><span>LinkedIn</span></a>
+            <a href="#"><img src="build/img/redes/instagram.ico" alt="Instagram"><span>Instagram</span></a>
+            <a href="#"><img src="build/img/redes/tiktok.ico" alt="TikTok"><span>TikTok</span></a>
+            <a href="#"><img src="build/img/redes/whatsapp.ico" alt="WhatsApp"><span>WhatsApp</span></a>
+            <a href="#"><img class ="twitter"src="build/img/redes/twitter.ico" alt="Twitter"><span>Twitter</span></a>
+            
+            <a href="#"><img src="build/img/redes/wechat.ico" alt="WeChat"><span>WeChat</span></a>
+            <a href="#"><img src="build/img/redes/threads.ico" alt="Threads"><span>Threads</span></a>
+        </div>
+     
+        <!-- Main Content Grid -->
+        <div class="footer-contenido">
+            <!-- Company Section -->
+            <div class="company-section">
+                <h3>empresa</h3>
+                <img src="build/img/logo/LOGO-INTI SMART_LOGO HORIZONTAL-POSITIVO.webp" alt="logo-inti" >
+                <div class="company-history">
+                    <p>pequeña historia de la empresa Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, laboriosam deleniti? Nisi, sapiente, natus sit quisquam fugiat, ducimus unde assumenda ad veritatis alias at. Praesentium fugit quae asperiores vel non!</p>
+                </div>
+                <div class="company-data">
+                    <ul class="datos-empresa">
+                        <li>Inti Smart S.A.C</li>
+                        <li>Número de Identificación Fiscal (NIF): A12345678</li>
+                        <li>Año de fundación:2025</li>
+                        <li>sector: tecnología y desarrollo de software</li>
+                        <li>certificados: ISO 9001</li>
+                    </ul> 
+
+                </div>
+            </div>
+       
+            <div class="categoria-section">
+                <div>
+                    <h3>categorias</h3>
+                    <ul class="categoria">
+                        <li>inicio</li>
+                        <li>nosotros</li>
+                        <li>servicios</li>
+                        <li>registros</li>
+                        <li>sectores</li>
+                        <li>contactos</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="sectors-title">sectores</h3>
+                    <ul class="categoria">
+                        <li>agricultura</li>
+                        <li>ganaderia</li>
+                        <li>hidrologia</li>
+                        <li>atmosferico</li>
+                        <li>salud</li>
+                        <li>Educación</li>
+
+                    </ul>
+                </div>
+                
+            </div>
+
+            <!-- mapa Section -->
+            <div class="ubicacion-section">
+                <h3>Ubicación</h3>
+                <div class="mapa">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3799.7441734919894!2d-76.9455049250592!3d-12.088749988151395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTLCsDA1JzE5LjUiUyA3NsKwNTYnMzQuNiJX!5e1!3m2!1ses!2spe!4v1736987189893!5m2!1ses!2spe" width="400" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="mapa-data">
+                    <ul class="datos-mapa">                  
+                        <li> Avenida de la Innovación, 123, Ciudad Tecnológica, CP 45678</li>
+                        <li>sede de la molina</li>
+                    </ul> 
+                </div>
+
+            </div>
+        </div>
+    
+        <!-- Copyright -->
+        <div class="copyright">
+            <p>| @Copyright 2025 | Todo los derechos reservados | Inti Smart S.A.C|</p>
+        </div>
+
+    </footer>
+
+
+
+    <script defer src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script defer src="./build/js/map.js"></script>
+    <script defer src="./build/js/chart.js"></script>
+    <script defer src="./build/js/mapaCalor.js"></script>
+
+
+
+
+</body>
+</html>

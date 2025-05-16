@@ -5752,6 +5752,8 @@ li {
     font-size: 1.9rem;
   }
 }
+
+
 .mision-vision-empresa p::first-letter {
   font-size: 2.6rem;
   font-weight: 600;
@@ -5851,10 +5853,9 @@ li {
   opacity: 1;
 }
 
-/* Animación para la imagen superior */
 @-webkit-keyframes cambioImagenSuperior {
   0%, 45% {
-    background-image: url("../img/navegador/agricultura_01.webp");
+    background-image: url("../../img/navegador/agricultura_01.webp");
   }
   50%, 95% {
     background-image: url("../img/navegador/investigacion_03.webp");

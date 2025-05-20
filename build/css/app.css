@@ -2759,20 +2759,19 @@ li {
   border-color: #298456;
 }
 
-.descripcion {
+.descripcion-pasos{
   font-family: "Inter", serif;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   text-align: center;
-  font-weight: 600;
+  font-weight: 500;
   color: #000000;
   text-transform: uppercase;
   transition: all 0.3s ease;
   padding: 0.5rem 1rem;
   max-width: 25rem;
-  margin: 0 auto;
 }
 @media (min-width: 1024px) {
-  .descripcion {
+  .descripcion-pasos {
     color: #068F8B;
     background-color: #F7F9FC;
     border-radius: 0.5rem;
